@@ -1,6 +1,7 @@
 To set up the script:
 
 Create a new directory on your local machine.
+
 Create a new file in the directory and name it index.php.
 Copy the script code into index.php.
 Customize the configuration parameters in the $config array as per your requirements.
