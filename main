@@ -1,0 +1,28 @@
+<?php
+// Configuration
+$config = [
+    'server_url' => 'http://your-server-url.com', // Replace with your VPS server URL
+    'log_file' => 'uptime_log.txt', // Path to the log file
+];
+
+// Function to check server status
+function checkServerStatus($serverURL) {
+    $ch = curl_init($serverURL);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_exec($ch);
+    $responseCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    return $responseCode;
+}
+
+// Check server status
+$statusCode = checkServerStatus($config['server_url']);
+$status = ($statusCode === 200) ? 'UP' : 'DOWN';
+
+// Log the status and timestamp
+$logEntry = date('Y-m-d H:i:s') . ' | ' . $status . PHP_EOL;
+file_put_contents($config['log_file'], $logEntry, FILE_APPEND);
+
+// Output the result
+echo 'Server Status: ' . $status;
+?>
